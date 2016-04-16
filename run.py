@@ -1,21 +1,25 @@
 """
 Usage:
-    run.py start
+    run.py perceptron --train=<train> --test=<test>
+
+Options:
+    --train Path to training data, txt file.
+    --test Path to test data, txt file.
 """
 
-from mlp.mlp import start
+from redes_neurais.resources.manager import run_perceptron
 import docopt
 import logging
 
 
-logger = logging.getLogger('mlp')
+logger = logging.getLogger('neural_network')
 
 
 def run():
     try:
         args = docopt.docopt(__doc__)
-        if args['start']:
-            start()
+        if args['perceptron']:
+            run_perceptron(args['--train'], args['--test'])
     except docopt.DocoptExit as e:
         print e.message
 
