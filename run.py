@@ -1,25 +1,24 @@
 """
 Usage:
-    run.py perceptron --train=<train> --test=<test>
+    run.py mlp --train=<train> --test=<test> --config=<config>
 
 Options:
     --train Path to training data, txt file.
     --test Path to test data, txt file.
+    --config Json  conofiguration for MLP.
 """
 
-from redes_neurais.resources.manager import run_perceptron
+from redes_neurais.resources.manager import run_mlp
 import docopt
-import logging
 
 
-logger = logging.getLogger('neural_network')
 
 
 def run():
     try:
         args = docopt.docopt(__doc__)
-        if args['perceptron']:
-            run_perceptron(args['--train'], args['--test'])
+        if args["mlp"]:
+            run_mlp(args['--config'], args['--train'], args['--test'])
     except docopt.DocoptExit as e:
         print e.message
 

@@ -1,0 +1,28 @@
+{
+  "format": "bmp",
+  "input_size":0,
+  "data": [
+      "train/0.bmp",
+      "train/1.bmp",
+      "train/2.bmp",
+      "train/3.bmp",
+      "train/4.bmp",
+      "train/5.bmp",
+      "train/6.bmp",
+      "train/7.bmp",
+      "train/8.bmp",
+      "train/9.bmp"
+    ],
+    "targets": [
+      [0, 0, 0, 0],
+      [0, 0, 0, 1],
+      [0, 0, 1, 0],
+      [0, 0, 1, 1],
+      [0, 1, 0, 0],
+      [0, 1, 0, 1],
+      [0, 1, 1, 0],
+      [0, 1, 1, 1],
+      [1, 0, 0, 0],
+      [1, 0, 0, 1]
+    ]
+}
