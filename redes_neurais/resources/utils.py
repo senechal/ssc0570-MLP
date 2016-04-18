@@ -1,14 +1,14 @@
-import numpy as num
+import numpy
+import random
 
-def sigmoid(x):
-    return num.tanh(x)
+def random_list(size, init, end):
+    _list = [0]*size
+    for i in range(size):
+        _list[i] = random.uniform(init, end)
+    return _list
 
-def escada(x):
-    return 1 if x > 0 else 0
+def sigmoid(v):
+    return numpy.tanh(v)
 
-def wi1(w0, ni, y, e, xi):
-    w1 = []
-    for index, value in enumerate(w0):
-        w1[index] = value + ni*(y - e)*xi[index]
-    return w1
-
+def d_sigmoid(y):
+    return 1 - numpy.power(y, 2)
