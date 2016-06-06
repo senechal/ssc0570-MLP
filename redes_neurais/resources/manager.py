@@ -125,3 +125,8 @@ def run_som(path_to_config, path_to_train, path_to_test):
             for j in range(config['y']):
                 print colored(u"\u25A0", colors[str(_map[i,j])]),
             print
+
+        print
+        print "Color Index:"
+        for index, item in enumerate(train_data['target']):
+            print colored(item, colors[str(index+1)])

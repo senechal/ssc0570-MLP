@@ -4,5 +4,5 @@
   "x": 10,
   "y": 10,
   "test":"random",
-  "iterations": 200
+  "iterations": 1000
 }
