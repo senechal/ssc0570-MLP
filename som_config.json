@@ -1,0 +1,8 @@
+{
+  "n":0.1,
+  "sigma":1.0,
+  "x": 10,
+  "y": 10,
+  "test":"random",
+  "iterations": 200
+}

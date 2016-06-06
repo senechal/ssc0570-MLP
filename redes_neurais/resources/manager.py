@@ -1,9 +1,19 @@
 import json
 import logging
 from redes_neurais.mlp import Mlp
+from redes_neurais.som import SOM
 from PIL import Image
 import numpy
 import pprint
+from termcolor import colored
+
+
+colors = {
+    "0": "white",
+    "1": "red",
+    "2": "blue",
+    "3": "green"
+}
 
 class DataProcessor(object):
     def __init__(self, path_to_train, path_to_test):
@@ -49,8 +59,11 @@ class DataProcessor(object):
             for index, item in enumerate(test_data["data"]):
                 test_data["data"][index] = self._open_bmp(item)
             return (train_data, test_data)
+        elif data_format == "values":
+            return (train_data, test_data)
         else:
             raise NotImplementedError("Format not implemented.")
+
 
 
 
@@ -79,3 +92,36 @@ def run_mlp(path_to_config, path_to_train, path_to_test):
         results, iterations = mlp.test(test_data["data"])
         print "Iteration: {}".format(iterations)
         classify(train_data["targets"], results)
+def run_som(path_to_config, path_to_train, path_to_test):
+    processor = DataProcessor(path_to_train, path_to_test)
+    config = DataProcessor.openJson(path_to_config)
+    values = processor.run()
+    if values:
+        train_data, test_data = values
+        som = SOM(config['x'], config['y'], train_data['input_size'], config['sigma'], config['n'])
+        if config['test'] == "random":
+            test = train = test_data['data']
+            som.random_weights_init(train)
+            som.train_random(train, config["iterations"])
+        elif config['test'] == 'batch':
+            test = test_data['data']
+            train = train_data['data']
+            som.random_weights_init(train)
+            som.train_batch(train)
+        else:
+            print "Something Wrong"
+            exit(1)
+        _map = numpy.chararray((config['x'], config['y']))
+        _map[:] = "0"
+        target = [ x[-1] for x in test]
+        t = numpy.zeros(len(target),dtype=int)
+        for index, item in enumerate(target):
+            t[index] = train_data["target"].index(item)+1
+        for cnt,xx in enumerate(test):
+            w = som.winner(xx)
+            _map[w] = t[cnt]
+
+        for i in range(config['x']):
+            for j in range(config['y']):
+                print colored(u"\u25A0", colors[str(_map[i,j])]),
+            print
